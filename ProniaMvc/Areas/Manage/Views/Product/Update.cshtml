@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "Update";
+}
+
+@model Product
+
+<form method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Name</label>
+        <input class="form-control" asp-for="Name">
+        <span class="text-danger" asp-validation-for="Name"></span>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Description</label>
+        <input class="form-control" asp-for="Description">
+        <span class="text-danger" asp-validation-for="Description"></span>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Price</label>
+        <input class="form-control" asp-for="Price">
+        <span class="text-danger" asp-validation-for="Price"></span>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Discount</label>
+        <input class="form-control" asp-for="Discount">
+        <span class="text-danger" asp-validation-for="Discount"></span>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">StockCount</label>
+        <input class="form-control" asp-for="StockCount">
+        <span class="text-danger" asp-validation-for="StockCount"></span>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Rating</label>
+        <input class="form-control" asp-for="Rating">
+        <span class="text-danger" asp-validation-for="Rating"></span>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">MainImage</label>
+        <input class="form-control" asp-for="MainImage">
+        <span class="text-danger" asp-validation-for="MainImage"></span>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">HoverImage</label>
+        <input class="form-control" asp-for="HoverImage">
+        <span class="text-danger" asp-validation-for="HoverImage"></span>
+    </div>
+    <div class="mb-3">
+        <label for="ImageFiles" class="form-label">ProductImages</label>
+        <input class="form-control" asp-for="ProductImages">
+        <span class="text-danger" asp-validation-for="ProductImages"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+

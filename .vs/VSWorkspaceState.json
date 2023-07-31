@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\ProniaMvc",
+    "\\ProniaMvc\\Areas",
+    "\\ProniaMvc\\Areas\\Manage",
+    "\\ProniaMvc\\Areas\\Manage\\Controllers",
+    "\\ProniaMvc\\Extentions",
+    "\\ProniaMvc\\Services",
+    "\\ProniaMvc\\Services\\Implements",
+    "\\ProniaMvc\\Views",
+    "\\ProniaMvc\\Views\\Home"
+  ],
+  "SelectedNode": "\\ProniaMvc\\Views\\Home\\Index.cshtml",
+  "PreviewInSolutionExplorer": false
+}
