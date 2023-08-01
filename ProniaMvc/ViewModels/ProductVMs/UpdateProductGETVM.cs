@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ProniaMvc.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace ProniaMvc.ViewModels.ProductVMs;
+namespace MVCPronia.ViewModels.ProductVMs;
 
-public record UpdateProductVM
+public record UpdateProductGETVM
 {
     public int Id { get; set; }
     [Required, MaxLength(64)]
@@ -17,8 +18,10 @@ public record UpdateProductVM
     public int StockCount { get; set; }
     [Required, Range(0, 5)]
     public byte Rating { get; set; }
-    public IFormFile? MainImage { get; set; }
-    public IFormFile? HoverImage { get; set; }
+    public string? HoverImage { get; set; }
+    public string? MainImage { get; set; }
+    public ICollection<ProductImage> ProductImages { get; set; }
+    public IFormFile? MainImageFile { get; set; }
+    public IFormFile? HoverImageFile { get; set; }
     public ICollection<IFormFile>? ProductImagesFiles { get; set; }
-
 }

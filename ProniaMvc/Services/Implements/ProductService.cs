@@ -63,6 +63,15 @@ public class ProductService : IProductService
         {
             _fileService.Delete(entity.HoverImage);
         }
+        if(entity.ProductImages != null)
+        {
+        foreach (var item in entity.ProductImages)
+        {
+
+            _fileService.Delete(item.Name);
+        }
+
+        }
         await _context.SaveChangesAsync();
     }
 
@@ -75,24 +84,68 @@ public class ProductService : IProductService
         return await _context.Products.Where(p => p.IsDeleted == false).ToListAsync();
     }
 
-    public async Task<Product> GetById(int? id)
+public async Task<Product> GetById(int? id, bool takeAll = false)
+{
+    if (id == null || id < 1) throw new ArgumentException();
+
+    Product entity;
+
+    if (takeAll)
     {
-        if (id == null || id < 1) throw new ArgumentException();
-        var entity = await _context.Products.FindAsync(id);
-        if (entity == null) throw new ArgumentNullException();
-        return entity;
+        entity = await _context.Products.FindAsync(id);
+    }
+    else
+    {
+        entity = await _context.Products.SingleOrDefaultAsync(p => p.IsDeleted == false && p.Id == id);
     }
 
-    public async Task Update(UpdateProductVM productVM)
+    if (entity is null) throw new ArgumentNullException();
+
+    return entity;
+}
+
+
+    public async Task Update(int? id,UpdateProductVM productVM)
     {
-        var entity = await GetById(productVM.Id);
+        var entity = await GetById(id);
         entity.Name = productVM.Name;
-        entity.Description = productVM.Description;
-        entity.Price = productVM.Price;
-        entity.Discount = productVM.Discount;
         entity.StockCount = productVM.StockCount;
+        entity.Price = productVM.Price;
+        entity.Description = productVM.Description;
         entity.Rating = productVM.Rating;
+        entity.Discount = productVM.Discount;
+        if(productVM.MainImage != null)
+        {
+            _fileService.Delete(entity.MainImage);
+            entity.MainImage = await _fileService.UploadAsync(productVM.MainImage,
+                Path.Combine( "assets", "imgs","products"));
+        }
+        if(productVM.HoverImage != null)
+        {
+            if(entity.HoverImage != null)
+            {
+
+            _fileService?.Delete(entity.HoverImage);
+            }
+            entity.HoverImage = await _fileService.UploadAsync(productVM.HoverImage,
+               Path.Combine("assets", "imgs", "products"));
+
+        }
+        if(productVM.ProductImagesFiles != null)
+        {
+            if(entity.ProductImages == null) entity.ProductImages = new List<ProductImage>();
+            foreach (var item in productVM.ProductImagesFiles)
+            {
+                ProductImage img = new ProductImage()
+                {
+                    Name = await _fileService.UploadAsync(productVM.HoverImage,
+               Path.Combine("assets", "imgs", "products"))
+                };
+                entity.ProductImages.Add(img);
+            }
+        }
         await _context.SaveChangesAsync();
+
     }
 
     public async Task SoftDelete(int? id)
@@ -100,5 +153,10 @@ public class ProductService : IProductService
         var entity = await GetById(id);
         entity.IsDeleted = !entity.IsDeleted;
         await _context.SaveChangesAsync();
+    }
+
+    public Task DeleteImage(int? id)
+    {
+        throw new NotImplementedException();
     }
 }

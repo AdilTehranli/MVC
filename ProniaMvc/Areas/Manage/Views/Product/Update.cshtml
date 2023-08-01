@@ -1,9 +1,30 @@
-﻿
+﻿@using MVCPronia.ViewModels.ProductVMs;
+
 @{
     ViewData["Title"] = "Update";
 }
+@section styles{
+    <style>
+        .prod-img{
+            display:flex;
+            gap:10px;
+        }
+        .prod-img div{
+            position:relative;
+        }
 
-@model Product
+            .prod-img div .x-button{
+                position:absolute;
+                top:0;
+                right:2.5px;
+                font-size:20px;
+                cursor:pointer;
+                color:deeppink;
+
+            }
+    </style>
+}
+@model UpdateProductGETVM
 
 <form method="post" enctype="multipart/form-data">
     <div class="mb-3">
@@ -32,25 +53,36 @@
         <span class="text-danger" asp-validation-for="StockCount"></span>
     </div>
     <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Rating</label>
+        <label  class="form-label">Rating</label>
         <input class="form-control" asp-for="Rating">
         <span class="text-danger" asp-validation-for="Rating"></span>
     </div>
     <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">MainImage</label>
+        <label <img src="~/assets/@Model.MainImage"/></label>
         <input class="form-control" asp-for="MainImage">
         <span class="text-danger" asp-validation-for="MainImage"></span>
     </div>
     <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">HoverImage</label>
+        <label <img src="~/assets/@Model.HoverImage"/>>HoverImage</label>
         <input class="form-control" asp-for="HoverImage">
         <span class="text-danger" asp-validation-for="HoverImage"></span>
     </div>
     <div class="mb-3">
-        <label for="ImageFiles" class="form-label">ProductImages</label>
-        <input class="form-control" asp-for="ProductImages">
-        <span class="text-danger" asp-validation-for="ProductImages"></span>
+        <label class="prod-img">
+            @foreach (var item in Model.ProductImages)
+            {
+                <div>
+                    
+                <a asp-action="DeleteImage" asp-route-id="@item.Id" class="x-button">x</a>
+                <img src="~/assets/@item.Name" />
+                </div>
+            }
+        </label>
+        <input class="form-control" asp-for="ProductImagesFiles">
+        <span class="text-danger" asp-validation-for="ProductImagesFiles"></span>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-
+@section scripts{
+    $()
+}

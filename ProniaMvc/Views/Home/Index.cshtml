@@ -132,12 +132,12 @@
                                 <div class="col-xl-3 col-md-4 col-sm-6">
                                     <div class="product-item">
                                         <div class="product-img">
-                                            <a href="shop.html">
-                                                <img class="primary-img" src="~/assets/imgs/products/@item.MainImage" alt="Product Images">
+                                            <a asp-controller="Flower" asp-action="Detail" asp-route-id="@item.Id">
+                                                <img class="primary-img" src="~/@item.MainImage" alt="Product Images">
                                                 @if (item.HoverImage != null)
                                                 {
                                                     <img class="secondary-img" 
-                                                    src="~/assets/imgs/product/@item.HoverImage" 
+                                                    src="~/@item.HoverImage" 
                                                     alt="Product Images">
                                                 }
                                             </a>
@@ -162,7 +162,7 @@
                                             </div>
                                         </div>
                                         <div class="product-content">
-                                            <a class="product-name" href="shop.html">@item.Name</a>
+                                            <a asp-controller="Flower" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a>
                                             <div class="price-box pb-1">
                                                 <span class="new-price">$@item.Price</span>
                                             </div>

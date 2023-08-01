@@ -49,8 +49,9 @@ public class FileService : IFileService
         if (!file.IsTypeValid(contentType)) throw new Exception();
         string newFileName = _renameFile(file);
         _checkDirectory(path);
-        await SaveAsync(file, Path.Combine(path, newFileName));
-        return newFileName;
+        path = Path.Combine(path, newFileName);
+        await SaveAsync(file, Path.Combine(path, path));
+        return path;
     }
 
 }
