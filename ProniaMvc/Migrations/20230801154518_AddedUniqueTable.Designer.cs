@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProniaMvc.DataAccess;
 
@@ -10,9 +11,10 @@ using ProniaMvc.DataAccess;
 namespace ProniaMvc.Migrations
 {
     [DbContext(typeof(ProniaDbContext))]
-    partial class ProniaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230801154518_AddedUniqueTable")]
+    partial class AddedUniqueTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

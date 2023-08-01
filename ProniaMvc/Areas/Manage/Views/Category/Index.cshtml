@@ -1,0 +1,29 @@
+﻿@using MVCPronia.Models;
+
+@{
+    ViewData["Title"] = "Index";
+}
+@model List<Category>
+<a asp-controller="Slider" asp-action="Create" class="btn btn-success mb-2">Create</a>
+<table class="table table-dark">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th colspan="2">Actions</th>
+    </tr>
+    <tbody>
+        @foreach (var cat in Model)
+        {
+            <tr>
+                <td>@cat.Id</td>
+                <td>@cat.Name</td>
+               
+                <td></td>
+                <td>
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

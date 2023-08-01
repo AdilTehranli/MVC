@@ -84,5 +84,19 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 @section scripts{
-    $()
+    <script>
+    $(".x-button").click(e=>{
+        e.preventDefault();
+        let elem = e.target;
+        console.log(elem.href);
+        fetch(elem.href).then(res=>{
+            if(res.ok==true){
+                elem.parentElement.remove()
+            }
+        })
+        .catch(e=>{
+            console.log(e)
+        })
+    })
+    </script>
 }

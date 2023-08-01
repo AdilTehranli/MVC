@@ -155,8 +155,14 @@ public async Task<Product> GetById(int? id, bool takeAll = false)
         await _context.SaveChangesAsync();
     }
 
-    public Task DeleteImage(int? id)
+    public async Task DeleteImage(int? id)
     {
-        throw new NotImplementedException();
+        if (id == null || id <= 0) throw new ArgumentNullException();
+        var entity = await _context.ProductImages.FindAsync(id);
+        if (entity == null) throw new NullReferenceException();
+        _fileService.Delete(entity.Name);
+        _context.ProductImages.Remove(entity);
+        await _context.SaveChangesAsync();
+
     }
 }

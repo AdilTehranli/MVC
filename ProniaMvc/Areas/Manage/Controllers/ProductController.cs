@@ -124,14 +124,12 @@ public class ProductController : Controller
         await _service.Update(id, uvm);
         return RedirectToAction(nameof(Index));
     }
-    public async Task DeleteImage(int id)
+    public async Task<IActionResult> DeleteImage(int id)
     {
-        if (id == null || id <= 0) throw new ArgumentNullException();
-        var entity = await _context.ProductImages.FindAsync(id);
-        if (entity == null) throw new NullReferenceException();
-        _service.Delete(entity.Id);
-        _context.ProductImages.Remove(entity);
-        await _context.SaveChangesAsync();
+        if (id == null || id <= 0) return BadRequest();
+        await _service.DeleteImage(id);
+        return Ok();
+    
 
     }
 }

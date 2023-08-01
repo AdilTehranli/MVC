@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using MVCPronia.Services.Implements;
+using MVCPronia.Services.Interfaces;
 using ProniaMvc.DataAccess;
 using ProniaMvc.ExtentionsServices.Implements;
 using ProniaMvc.ExtentionsServices.Interfaces;
@@ -13,6 +15,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ISliderService, SliderService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 builder.Services.AddDbContext<ProniaDbContext>(opt =>
 {
