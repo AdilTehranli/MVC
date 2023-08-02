@@ -29,6 +29,7 @@
 
     <!-- Style CSS -->
     <link rel="stylesheet" href="~/assets/css/style.css">
+    @await RenderSectionAsync("styles",false)
 
 </head>
 
@@ -1138,7 +1139,7 @@
 
     <!--Main JS (Common Activation Codes)-->
     <script src="~/assets/js/main.js"></script>
-
+    @await RenderSectionAsync("scripts",false)
 </body>
 
 

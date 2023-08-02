@@ -94,20 +94,21 @@ public class ProductController : Controller
     {
         if(id == null ||  id <= 0) return BadRequest();
         var entity = await _service.GetTable
-            .Include(p => p.ProductImages).SingleOrDefaultAsync(p => p.Id == id);
+            .Include(p => p.ProductImages).Include(p=>p.ProductCategories).SingleOrDefaultAsync(p => p.Id == id);
         if (entity == null) return BadRequest();
         ViewBag.Categories = new SelectList(_category.GetTable, "Id", "Name");
-        UpdateProductGETVM vm =new UpdateProductGETVM
+        UpdateProductGETVM vm = new UpdateProductGETVM
         {
-            Name=entity.Name,
-            Description=entity.Description,
-            Price=entity.Price,
-            StockCount=entity.StockCount,
-            Rating=entity.Rating,
-            Discount=entity.Discount,
-            MainImage=entity.MainImage,
-            HoverImage=entity.HoverImage,
-            ProductImages = entity.ProductImages
+            Name = entity.Name,
+            Description = entity.Description,
+            Price = entity.Price,
+            StockCount = entity.StockCount,
+            Rating = entity.Rating,
+            Discount = entity.Discount,
+            MainImage = entity.MainImage,
+            HoverImage = entity.HoverImage,
+            ProductImages = entity.ProductImages,
+            ProductCategoryIds = entity.ProductCategories.Select(p => p.CategoryId).ToList()
         };
         return View(entity);
     }
@@ -127,7 +128,8 @@ public class ProductController : Controller
             Discount = vm.Discount,
             HoverImage = vm.HoverImageFile,
             MainImage = vm.MainImageFile,
-            ProductImageFiles = vm.ProductImageFiles
+            ProductImageFiles = vm.ProductImageFiles,
+            CategoryIds=vm.ProductCategoryIds
 
         };
         await _service.Update(id, uvm);

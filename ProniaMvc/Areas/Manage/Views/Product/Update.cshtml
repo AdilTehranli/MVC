@@ -4,6 +4,9 @@
     ViewData["Title"] = "Update";
 }
 @section styles{
+    
+    <link href="~/assets/select2/css/select2.min.css" rel="stylesheet" />
+
     <style>
         .prod-img{
             display:flex;
@@ -56,6 +59,12 @@
         <label  class="form-label">Rating</label>
         <input class="form-control" asp-for="Rating">
         <span class="text-danger" asp-validation-for="Rating"></span>
+
+    </div>
+    <div class="mb-3">
+        <label class="form-label">ProductCategoryIds</label>
+        <input class="form-control" asp-for="ProductCategoryIds">
+        <span class="text-danger" asp-validation-for="ProductCategoryIds"></span>
     </div>
     <div class="mb-3">
         <label <img src="~/assets/@Model.MainImage"/></label>
@@ -84,6 +93,15 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 @section scripts{
+    <script src="~/assets/select2/js/select2.min.js"></script>
+    <partial name="_ValidationPartial" />
+    <script>
+        $(document).ready(function () {
+            $('.salam').select2({
+                maximumSelectionLength: 4
+            });
+        });
+    </script>
     <script>
     $(".x-button").click(e=>{
         e.preventDefault();
@@ -100,3 +118,4 @@
     })
     </script>
 }
+
