@@ -131,10 +131,10 @@ public async Task<Product> GetById(int? id, bool takeAll = false)
                Path.Combine("assets", "imgs", "products"));
 
         }
-        if(productVM.ProductImagesFiles != null)
+        if(productVM.ProductImageFiles != null)
         {
             if(entity.ProductImages == null) entity.ProductImages = new List<ProductImage>();
-            foreach (var item in productVM.ProductImagesFiles)
+            foreach (var item in productVM.ProductImageFiles)
             {
                 ProductImage img = new ProductImage()
                 {

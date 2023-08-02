@@ -4,7 +4,6 @@ namespace ProniaMvc.ViewModels.ProductVMs;
 
 public record UpdateProductVM
 {
-    public int Id { get; set; }
     [Required, MaxLength(64)]
     public string Name { get; set; }
     [Required]
@@ -19,6 +18,7 @@ public record UpdateProductVM
     public byte Rating { get; set; }
     public IFormFile? MainImage { get; set; }
     public IFormFile? HoverImage { get; set; }
-    public ICollection<IFormFile>? ProductImagesFiles { get; set; }
+    public ICollection<IFormFile>? ProductImageFiles { get; set; }
+    public List<int> CategoryIds { get; set; }
 
 }

@@ -1,7 +1,19 @@
-﻿
+﻿@using MVCPronia.Models;
+
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+@model Category
+
+<form method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Title</label>
+        <input class="form-control" asp-for="Name">
+        <span class="text-danger" asp-validation-for="Name"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
 

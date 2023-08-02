@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MVCPronia.Services.Interfaces;
 using MVCPronia.ViewModels.ProductVMs;
 using ProniaMvc.DataAccess;
 using ProniaMvc.Extentions;
@@ -14,18 +16,24 @@ public class ProductController : Controller
     readonly IFileService _fileService;
     readonly ProniaDbContext _context;
     readonly IProductService _service;
+    readonly ICategoryService _category;
 
-    public ProductController(IProductService service, ProniaDbContext context)
+    public ProductController(IProductService service, ProniaDbContext context, ICategoryService category)
     {
         _service = service;
         _context = context;
+        _category = category;
     }
     public async Task<IActionResult> Index()
     {
-        return View(await _service.GetAll(true));
+      
+        return View(await _service.GetTable.Include(p => p.ProductCategories)
+            .ThenInclude(pc => pc.Category).ToListAsync());
     }
     public IActionResult Create()
     {
+        ViewBag.Categories = new SelectList(_category.GetTable, "Id", "Name");
+
         return View();
     }
     [HttpPost]
@@ -88,7 +96,8 @@ public class ProductController : Controller
         var entity = await _service.GetTable
             .Include(p => p.ProductImages).SingleOrDefaultAsync(p => p.Id == id);
         if (entity == null) return BadRequest();
-       UpdateProductGETVM vm =new UpdateProductGETVM
+        ViewBag.Categories = new SelectList(_category.GetTable, "Id", "Name");
+        UpdateProductGETVM vm =new UpdateProductGETVM
         {
             Name=entity.Name,
             Description=entity.Description,
@@ -118,7 +127,7 @@ public class ProductController : Controller
             Discount = vm.Discount,
             HoverImage = vm.HoverImageFile,
             MainImage = vm.MainImageFile,
-            ProductImagesFiles = vm.ProductImagesFiles
+            ProductImageFiles = vm.ProductImageFiles
 
         };
         await _service.Update(id, uvm);

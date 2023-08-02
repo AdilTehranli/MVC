@@ -3,6 +3,7 @@ using MVCPronia.Models;
 using MVCPronia.Services.Interfaces;
 using ProniaMvc.DataAccess;
 using ProniaMvc.Models;
+using ProniaMvc.Services.Interfaces;
 
 namespace MVCPronia.Services.Implements
 {
@@ -14,6 +15,9 @@ namespace MVCPronia.Services.Implements
         {
             _dbContext = dbContext;
         }
+        public IQueryable<Product> GetTable { get => _dbContext.Set<Product>(); }
+
+        IQueryable<Category> ICategoryService.GetTable => throw new NotImplementedException();
 
         public async Task Create(string name)
         {
@@ -39,7 +43,25 @@ namespace MVCPronia.Services.Implements
             throw new NotImplementedException();
         }
 
+        public async Task<bool> IsAllExist(List<int> ids)
+        {
+            foreach (var id in ids)
+            {
+                if (!await IsExist(id))
+                    return false;
+            }
+            return true;
+        }
+
+        public async Task<bool> IsExist(int id)
+         => await _dbContext.Categories.AnyAsync(c => c.Id == id);
+
         public Task Update(int id, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Update(int? id, string name)
         {
             throw new NotImplementedException();
         }

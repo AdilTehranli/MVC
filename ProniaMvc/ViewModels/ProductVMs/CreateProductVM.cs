@@ -20,4 +20,5 @@ public record CreateProductVM
     public IFormFile MainImageFile { get; set; }
     public IFormFile? HoverImageFile { get; set; }
     public List<IFormFile>? ImageFiles { get; set; }
+    public List<int> CategoryIds { get; set; }
 }
